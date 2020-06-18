@@ -47,7 +47,7 @@
 			<table>
 				<% @book.book_comments.each do |book_comment| %>
 				<tr>
-					<td><%= attachment_image_tag(book_comment.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %></td>
+					<td><%= attachment_image_tag(book_comment.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
 					<td><%= book_comment.user.name %></td>
 					<td><%= book_comment.comment %></td>
 					<td><% if book_comment.user == current_user%>
@@ -58,6 +58,16 @@
 				</tr>
 				<% end %>
 			</table>
+
+			<% if @book_comment.errors.any? %>
+  			<div class="alert alert-warning">
+  			<%= @book_comment.errors.count %>errors prohibited this book from being saved:
+    		<ul>
+      		<% @book_comment.errors.full_messages.each do |message| %>
+        	<li><%= message %></li>
+      		<% end %>
+      		<% end %>
+
 
 			<%= form_for [@book, @book_comment] do |f| %>
     		<div class="row">

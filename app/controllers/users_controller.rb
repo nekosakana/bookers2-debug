@@ -28,6 +28,18 @@ before_action :authenticate_user!, :only => [:show, :index, :edit]
   	end
   end
 
+  def following
+    @book = Book.new
+    @user = User.find(params[:id])
+    @users = @user.following_user
+  end
+
+  def followers
+    @book = Book.new
+    @user = User.find(params[:id])
+    @users = @user.follower_user
+  end
+
   private
   def user_params
   	params.require(:user).permit(:name, :introduction, :profile_image)

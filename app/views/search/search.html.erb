@@ -1,0 +1,33 @@
+<% if @user_or_post == "1"%>
+    <h1>User</h1>
+    <table class="table table-hover table-inverse">
+        <% @users.each do |user| %>
+        <thead>
+            <tr>
+                <th><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg", size: "50x50") %></th>
+                <th><%= user.name %> </th>
+                <th><%= link_to "Show", user, class: "user_#{user.id}" %></th>
+            </tr>
+        </thead>
+        <% end %>
+    </table>
+
+<% elsif @user_or_post == "2" %>
+    <h2>Book</h2>
+    <table class="table table-hover table-inverse">
+    <% @books.each do |book| %>
+        <thead>
+            <tr>
+                <th>
+                     <%= link_to(book.user) do %>
+                    <%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg", size: "50x50") %> 
+                        <% end %>
+                    </th>
+                    <th><%= link_to book.title, book, class: "book_#{book.id}" %></th>
+                    <th><%= book.body %></th>
+            </tr>
+        </thead>
+    <% end %>
+    </table>
+<% else %>
+<% end %>

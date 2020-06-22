@@ -1,0 +1,2 @@
+// この部分のHTMLだけ、renderで部分的に更新するという処理です
+$('#favorite-<%= @book.id %>').html("<%= j(render partial: 'favorites/favorite', locals: {book: @book}) %>");

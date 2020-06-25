@@ -18,6 +18,19 @@ class User < ApplicationRecord
 
   validates :introduction, length: { maximum: 50 }
 
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+
+  #postal_codeからprefecture_nameに変換するメソッドを用意します．
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
+
+
   # ユーザーをフォローする
   def follow(user_id)
     follower.create(followed_id: user_id)
@@ -48,4 +61,10 @@ class User < ApplicationRecord
       end
     end
   end
+
+  def address
+    [postal_code, city, building].compact.join(',')
+  end
+  geocoded_by :address
+  after_validation :geocode
 end

@@ -42,7 +42,7 @@ before_action :authenticate_user!, :only => [:show, :index, :edit]
 
   private
   def user_params
-  	params.require(:user).permit(:name, :introduction, :profile_image)
+  	params.require(:user).permit(:name, :introduction, :profile_image ,:prefecture_code, :city, :building, :postal_code)
   end
 
   #url直接防止　メソッドを自己定義してbefore_actionで発動。

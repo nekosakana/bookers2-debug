@@ -13,10 +13,17 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  private
+#sign_up時の登録情報追加
+def configure_permitted_parameters
+  devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :profle_image, :email, :postal_code, :prefecture_code, :city, :building])
+  devise_parameter_sanitizer.permit(:sign_in, keys: [:name]) # ログイン時はnameを使用
+end
+
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :postal_code, :prefecture_code, :city, :building])
     #sign_upの際にnameのデータ操作を許。追加したカラム。
   end
 end

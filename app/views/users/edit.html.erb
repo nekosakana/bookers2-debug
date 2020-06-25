@@ -1,3 +1,4 @@
+<div data-turbolinks="false">
 <h2>User info</h2>
 
 <%= form_for(@user) do |f| %>
@@ -14,22 +15,35 @@
 <!-- エラーメッセージ表示-->
 
 <div class="field">
-	<%= f.label :name %>
+	<%= f.label :name %><br>
 	<%= f.text_field :name, class: "name" %>
 </div>
 
 <div class="field">
-	<%= f.label :image %>
+	<%= f.label :image %><br>
 	<%= f.attachment_field :profile_image, class: "user_image" %>
 </div>
 
 <div class="field">
-	<%= f.label :introduction %>
+	<%= f.label :introduction %><br>
 	<%= f.text_area :introduction, class: "introduction" %>
 </div>
+
+<div class="field">
+    <%= f.label :postal_code %><br />
+    <%= f.text_field :postal_code, autofocus: true, placeholder: 'postal_code', class: "postal_code", id: "address_zipcode" %>
+  </div>
+
+<div class="field">
+    <%= f.label :prefecture_code %><br>
+    <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, class: "address" %><br>
+    <%= f.text_field :city, autofocus: true, placeholder: 'ciry', class: "address", id:"address_city" %><br>
+    <%= f.text_field :building, autofocus: true, placeholder: 'building', class: "address", id: "address_street" %><br>
+  </div>
 
 <div class="actions">
 	<%= f.submit %>
 </div>
 
 <% end %>
+</div>
